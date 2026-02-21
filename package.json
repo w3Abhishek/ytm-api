@@ -1,0 +1,21 @@
+{
+  "name": "ytm-api",
+  "version": "1.0.0",
+  "description": "YouTube Music API — Deploy on Cloudflare Workers, Vercel, or Netlify",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && wrangler dev src/index.js",
+    "deploy:cf": "node build.js && wrangler deploy src/index.js",
+    "build:vercel": "echo 'No build step needed'",
+    "build:netlify": "echo 'No build step needed'"
+  },
+  "dependencies": {
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0",
+    "@hono/node-server": "^1.13.0"
+  }
+}

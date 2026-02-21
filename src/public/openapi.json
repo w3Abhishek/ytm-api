@@ -1,0 +1,165 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "YouTube Music API",
+        "description": "Search YouTube Music and get lyrics — clean, standardized JSON from a serverless API.",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Abhishek Verma",
+            "url": "https://github.com/w3Abhishek"
+        }
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Search",
+            "description": "Search YouTube Music"
+        },
+        {
+            "name": "Lyrics",
+            "description": "Get song lyrics"
+        }
+    ],
+    "paths": {
+        "/search": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search YouTube Music",
+                "description": "Search across songs, videos, artists, albums, podcasts, profiles and more.",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": true,
+                        "description": "Search query",
+                        "schema": {
+                            "type": "string",
+                            "example": "espresso sabrina carpenter"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "description": "Filter type",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "all",
+                                "songs",
+                                "videos",
+                                "artists",
+                                "albums",
+                                "podcasts",
+                                "podcast_episodes",
+                                "profiles",
+                                "community_playlists"
+                            ],
+                            "default": "all"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "query": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "topResult": {
+                                            "type": "object",
+                                            "description": "Top result (only in 'all' type)"
+                                        },
+                                        "results": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing or invalid parameters"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/lyrics/{videoId}": {
+            "get": {
+                "tags": [
+                    "Lyrics"
+                ],
+                "summary": "Get song lyrics",
+                "description": "Retrieve lyrics for a song using its YouTube video ID.",
+                "parameters": [
+                    {
+                        "name": "videoId",
+                        "in": "path",
+                        "required": true,
+                        "description": "YouTube video ID from search results",
+                        "schema": {
+                            "type": "string",
+                            "example": "kIft-LUHHVA"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lyrics found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "videoId": {
+                                            "type": "string"
+                                        },
+                                        "browseId": {
+                                            "type": "string"
+                                        },
+                                        "lyrics": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lyrics not available for this video"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    }
+}

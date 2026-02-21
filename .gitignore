@@ -1,0 +1,18 @@
+node_modules/
+.wrangler/
+.vercel/
+.netlify/
+
+# Build output
+src/page.js
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
